@@ -44,14 +44,11 @@ def draw_tetromino(screen, tetromino):
         pygame.draw.rect(screen, tetromino['color'], (tetromino['x'] + block[0] * 50, tetromino['y'] + block[1] * 50, 50, 50))
         pygame.draw.rect(screen, (0, 0, 0), (tetromino['x'] + block[0] * 50, tetromino['y'] + block[1] * 50, 50, 50), 2)
 
-        semi_transparent_color = (tetromino['color'][0], tetromino['color'][1], tetromino['color'][2], 128)  # 50% transparency
-    for block in tetromino['shape']:
-        pygame.draw.rect(screen, semi_transparent_color, 
-                         (tetromino['x'] + block[0] * 50, 
-                          tetromino['y'] + block[1] * 50 + 200, 50, 50))
-        pygame.draw.rect(screen, (0, 0, 0), 
-                         (tetromino['x'] + block[0] * 50, 
-                          tetromino['y'] + block[1] * 50 + 200, 50, 50), 2)
+        semi_transparent_color = (tetromino['color'][0], tetromino['color'][1], tetromino['color'][2], 128)
+        temp_surface = pygame.Surface((50, 50), pygame.SRCALPHA)
+        temp_surface.fill(semi_transparent_color)
+        
+        screen.blit(temp_surface, (tetromino['x'] + block[0] * 50, tetromino['y'] + block[1] * 50))
 
 def draw_locked_tetrominoes(screen, tetrominoes):
     for tetromino in tetrominoes:
