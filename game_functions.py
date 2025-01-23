@@ -168,6 +168,18 @@ def update_tetromino(tetromino, current_time, time_since_gravity, time_since_dir
     
     if not (keys[pygame.K_s] or keys[pygame.K_d] or keys[pygame.K_a]):
         last_move_time['key'] = None
+
+    if keys[pygame.K_SPACE]:
+        for i in range(20):
+            tetromino['y'] += 50
+            
+            if check_collision(tetromino, locked_tetrominoes) or check_oob_y(tetromino):
+                    tetromino['y'] -= 50
+                    locked_tetrominoes = lock_tetromino(tetromino, locked_tetrominoes)
+                    locked_tetrominoes = clear_lines(locked_tetrominoes)
+                    tetromino = generate_tetromino()
+                    return tetromino, time_since_gravity, time_since_directional_input, last_move_time, locked_tetrominoes
+    
    
     return tetromino, time_since_gravity, time_since_directional_input, last_move_time, locked_tetrominoes
 
